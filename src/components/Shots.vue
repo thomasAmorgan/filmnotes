@@ -1,9 +1,9 @@
 <template lang="html">
 
   <div>
-    <button @click="saveShot">Add Shot</button>
+    <button @click="editShot" v-if="!editMode">Add Shot</button>
 
-    <div >
+    <div v-if="editMode" >
       <div>
         <div class="">
           <label for="shotTitle">Title</label>
@@ -34,6 +34,7 @@
           </textarea>
         </div>
       </div>
+      <button @click="saveShot">Save</button>
     </div>
   </div>
 
@@ -48,6 +49,7 @@ export default {
 
   data: function() {
     return {
+      editMode: false,
       shot: {
         shotTitle: '',
         shotShutterSpeed: '',
@@ -58,11 +60,21 @@ export default {
   },
 
   methods: {
-    // saveShot: function() {
-    //   eventBus.saveShot(this.shot);
-    // },
-    saveShot() {
+    saveShot: function() {
       this.$emit('addShot', this.shot);
+      this.resetShot();
+      this.editMode = false;
+    },
+    resetShot: function() {
+      this.shot = {
+        shotTitle: '',
+        shotShutterSpeed: '',
+        shotAperture: '',
+        shotDescription: ''
+      }
+    },
+    editShot() {
+      this.editMode = true;
     }
   }
 

@@ -7,6 +7,7 @@
              id="rollTitle"
              v-model="roll.rollTitle" @input="emitChange">
     </div>
+    <p>Shot: {{ shotNumber }} / 36</p>
 
     <div class="">
       <label for="roll.rollFilmType">Film Type</label>
@@ -31,10 +32,10 @@
     </div>
 
     <!-- <button @click="saveRoll">Save</button> -->
-    <button @click="saveRoll">Add Roll</button>
+    <!-- <button @click="saveRoll">Add Roll</button> -->
     <!-- <hr> -->
 
-    <!-- <app-shots @addShot="addShotToRoll"></app-shots> -->
+    <app-shots @addShot="addShotToRoll"></app-shots>
   </div>
 
 </template>
@@ -56,6 +57,7 @@ export default {
   data: function() {
 
     return {
+      shotNumber: 0,
       // roll: {
       //   rollTitle: 'Summer 2017',
       //   rollFilmType: 'Portra',
@@ -79,6 +81,8 @@ export default {
     addShotToRoll(shot) {
       console.log("added shot");
       this.roll.shotsArray.push(shot);
+      this.shotNumber++;
+      this.emitChange();
     },
     emitChange() {
       console.log("emit");
