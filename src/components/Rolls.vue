@@ -70,6 +70,7 @@ export default {
     },
 
     addShotToRoll(shot) {
+      console.log("added shot");
       this.roll.shotsArray.push(shot);
     }
   },
