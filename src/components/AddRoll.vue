@@ -2,9 +2,13 @@
   <div class="">
     <button @click="addRoll">Create Roll</button>
 
-    <div v-if="newRoll">
-      <app-rolls @addRoll="addRollToRolls"></app-rolls>
+    <div>
+      <app-rolls v-for="(roll, index) in rolls" v-model="rolls[index]"></app-rolls>
     </div>
+
+    <!-- <div v-if="newRoll">
+      <app-rolls @addRoll="addRollToRolls"></app-rolls>
+    </div> -->
 
   </div>
 
@@ -17,6 +21,14 @@ import Shots from './Shots.vue';
 import {eventBus} from '../main';
 // import eventBus from '../helpers/eventBus.js';
 
+function Roll() {
+  this.rollTitle = "summer roll";
+  this.rollFilmType = 'Portra';
+  this.rollISO = '400';
+  this.rollDescription = 'shots from last summer.';
+  this.shotsArray = [];
+}
+
 export default {
 
   props: ['rollData'],
@@ -28,15 +40,13 @@ export default {
 
   data: function() {
     return {
-      newRoll: false,
-      newShot: false,
-      tempRoll: {}
+      rolls: [new Roll(), new Roll(), new Roll()]
     };
   },
 
   methods: {
     addRoll() {
-      this.newRoll = true;
+      this.rolls.push(new Roll());
     },
     addShot() {
       this.newShot = true;

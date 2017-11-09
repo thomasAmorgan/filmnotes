@@ -1,40 +1,40 @@
 <template lang="html">
 
-  <div>
+  <div class="roll-container">
     <div class="">
       <label for="roll.rollTitle">Title</label>
       <input type="text"
              id="rollTitle"
-             v-model="roll.rollTitle">
+             v-model="roll.rollTitle" @input="emitChange">
     </div>
 
     <div class="">
       <label for="roll.rollFilmType">Film Type</label>
       <input type="text"
              id="rollFilmType"
-             v-model="roll.rollFilmType">
+             v-model="roll.rollFilmType" @input="emitChange">
     </div>
 
     <div class="">
       <label for="roll.rollISO">ISO</label>
       <input type="text"
              id="rollISO"
-             v-model="roll.rollISO">
+             v-model="roll.rollISO" @input="emitChange">
     </div>
 
     <div class="">
       <label for="roll.rollDescription">Description</label>
       <textarea id="rollDescription"
                 rows="5"
-                v-model="roll.rollDescription">
+                v-model="roll.rollDescription" @input="emitChange">
       </textarea>
     </div>
 
     <!-- <button @click="saveRoll">Save</button> -->
     <button @click="saveRoll">Add Roll</button>
-    <hr>
+    <!-- <hr> -->
 
-    <app-shots @addShot="addShotToRoll"></app-shots>
+    <!-- <app-shots @addShot="addShotToRoll"></app-shots> -->
   </div>
 
 </template>
@@ -46,17 +46,24 @@ import {eventBus} from '../main';
 
 export default {
 
-  props: ['rollData'],
+  model: {
+    prop: 'roll',
+    event: 'input'
+  },
+
+  props: ["roll"],
 
   data: function() {
+
     return {
-      roll: {
-        rollTitle: '',
-        rollFilmType: '',
-        rollISO: '',
-        rollDescription: '',
-        shotsArray: []
-      }
+      // roll: {
+      //   rollTitle: 'Summer 2017',
+      //   rollFilmType: 'Portra',
+      //   rollISO: '400',
+      //   rollDescription: 'shots from last summer.',
+      //   shotsArray: []
+      // },
+      editMode: false,
     };
   },
 
@@ -72,7 +79,14 @@ export default {
     addShotToRoll(shot) {
       console.log("added shot");
       this.roll.shotsArray.push(shot);
+    },
+    emitChange() {
+      console.log("emit");
+      this.$emit('input', this.roll);
     }
+  },
+  computed: {
+
   },
 
   // mounted() {
@@ -88,4 +102,7 @@ export default {
 </script>
 
 <style lang="css">
+.roll-container {
+  outline: 1px solid;
+}
 </style>
