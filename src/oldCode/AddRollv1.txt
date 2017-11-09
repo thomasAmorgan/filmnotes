@@ -1,0 +1,113 @@
+<template lang="html">
+  <div class="">
+    <button @click="addRoll">Create Roll</button>
+
+    <div v-if="newRoll">
+      <div class="">
+        <label for="rollTitle">Title</label>
+        <input type="text"
+               id="rollTitle"
+               v-model="rollData.rollTitle">
+      </div>
+
+      <div class="">
+        <label for="rollFilmType">Film Type</label>
+        <input type="text"
+               id="rollFilmType"
+               v-model="rollData.rollFilmType">
+      </div>
+
+      <div class="">
+        <label for="rollISO">ISO</label>
+        <input type="text"
+               id="rollISO"
+               v-model="rollData.rollISO">
+      </div>
+
+      <div class="">
+        <label for="rollDescription">Description</label>
+        <textarea id="rollDescription"
+                  rows="5"
+                  v-model="rollData.rollDescription">
+        </textarea>
+      </div>
+      <hr>
+    </div>
+
+    <div v-if="newRoll">
+      <button @click="addShot">Add Shot</button>
+
+      <div v-if="newShot">
+        <div class="">
+          <label for="shotTitle">Title</label>
+          <input type="text"
+                 id="shotTitle"
+                 v-model="rollData.shotsArray[0].shotTitle">
+        </div>
+
+        <div class="">
+          <label for="shotShutterSpeed">Shutter Speed</label>
+          <input type="text"
+                 id="shotShutterSpeed"
+                 v-model="rollData.shotsArray.shotShutterSpeed">
+        </div>
+
+        <div class="">
+          <label for="shotAperture">Aperture</label>
+          <input type="text"
+                 id="shotAperture"
+                 v-model="rollData.shotsArray.shotAperture">
+        </div>
+
+        <div class="">
+          <label for="shotDescription">Notes</label>
+          <textarea id="shotDescription"
+                    rows="5"
+                    v-model="rollData.shotsArray.shotDescription">
+          </textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</template>
+
+<script>
+export default {
+
+  data: function() {
+    return {
+      newRoll: false,
+      newShot: false,
+      rollData: {
+        rollTitle: '',
+        rollFilmType: '',
+        rollISO: '',
+        rollDescription: '',
+        shotsArray: [
+          {
+              shotTitle: '',
+              shotShutterSpeed: '',
+              shotAperture: '',
+              shotDescription: ''
+          }
+        ]
+      }
+    };
+  },
+
+  methods: {
+    addRoll() {
+      this.newRoll = true;
+    },
+    addShot() {
+      this.newShot = true;
+    }
+  }
+
+}
+</script>
+
+<style lang="css">
+</style>
