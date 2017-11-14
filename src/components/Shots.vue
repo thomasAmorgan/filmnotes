@@ -1,7 +1,12 @@
+<!-- handles the creation of a new shot -->
 <template lang="html">
 
   <div>
-    <button @click="editShot" v-if="!editMode" class="w3-bar w3-button w3-blue-gray w3-small">Add Shot</button>
+    <!-- when clicked it toggles the view to edit a new shot -->
+    <button @click="editShot"
+            v-if="!editMode"
+            class="w3-bar w3-button w3-blue-gray w3-small">Add Shot
+    </button>
 
     <div v-if="editMode" >
       <div class="w3-container">
@@ -38,6 +43,8 @@
           </textarea>
         </div>
       </div>
+
+      <!-- one button to save the shot to the roll and another to discard it -->
       <div class="w3-bar w3-small w3-row">
         <div class="w3-col s6 w3-center w3-blue-gray ">
           <button @click="saveShot" class=" w3-button w3-blue-gray">Save</button>
@@ -53,49 +60,52 @@
 </template>
 
 <script>
+  export default {
 
-export default {
-
-  data: function() {
-    return {
-      editMode: false,
-      shot: {
-        shotTitle: '',
-        shotShutterSpeed: '',
-        shotAperture: '',
-        shotDescription: ''
-      }
-    }
-  },
-
-  methods: {
-    saveShot() {
-      this.$emit('addShot', this.shot);
-      this.resetShot();
-      this.editMode = false;
-    },
-    resetShot() {
-      this.shot = {
-        shotTitle: '',
-        shotShutterSpeed: '',
-        shotAperture: '',
-        shotDescription: ''
+    data: function() {
+      return {
+        editMode: false,
+        shot: {
+          shotTitle: '',
+          shotShutterSpeed: '',
+          shotAperture: '',
+          shotDescription: ''
+        }
       }
     },
-    editShot() {
-      this.editMode = true;
-    },
-    discardShot() {
-      if (confirm("Are you sure you want to discard this shot?") == true) {
-        this.editMode = false;
+
+    methods: {
+      // emits an event to the parent so the shot can be added to the roll
+      // resets the page so a new shot can be added after and hides editor view
+      saveShot() {
+        this.$emit('addShot', this.shot);
         this.resetShot();
-      }
-      else {
-        console.log("ignore discard");
+        this.editMode = false;
+      },
+      resetShot() {
+        this.shot = {
+          shotTitle: '',
+          shotShutterSpeed: '',
+          shotAperture: '',
+          shotDescription: ''
+        }
+      },
+      editShot() {
+        this.editMode = true;
+      },
+      // prompts user if they want to discard the shot if yes it resets the shot
+      // info and hides the editor view
+      discardShot() {
+        if (confirm("Are you sure you want to discard this shot?") == true) {
+          this.editMode = false;
+          this.resetShot();
+        }
+        else {
+          console.log("ignore discard");
+        }
       }
     }
   }
-}
 </script>
 
 <style lang="css" scoped>

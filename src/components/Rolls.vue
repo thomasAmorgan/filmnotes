@@ -1,15 +1,21 @@
+<!-- handles the displaying of a single roll object as a card that the user -->
+<!-- can interact with to edit or delete the roll or shots -->
 <template lang="html">
 
   <div class="w3-container w3-mobile">
 
+    <!-- this is for viewing the information about the roll without editing -->
+    <!-- user can choose to view the shots in the roll without editing as well -->
     <div class="w3-cell-row" v-if="!editMode">
       <div class="w3-cell">
         <div class="w3-card-4 w3-light-gray">
 
+          <!-- displays the roll title -->
           <div class="w3-bar w3-black w3-center">
             <h4>{{roll.rollTitle}}</h4>
           </div>
 
+          <!-- navbar within roll to allow editing and or displaying the shots -->
           <div class="w3-row w3-bar w3-black w3-small w3-center">
             <div class="w3-col s6">
               <button @click="toggleEdit"
@@ -17,6 +23,7 @@
               </button>
             </div>
 
+            <!-- button will flip depending on what view is displayed roll or shots -->
             <div class="w3-col s6">
               <button @click="toggleView"
                       class="w3-button w3-black"
@@ -80,23 +87,29 @@
       </div>
     </div>
 
-
+    <!-- allows for the editing of the roll's information, the values are -->
+    <!-- linked with a custom v-model that will update the roll's info -->
+    <!-- as soon as a value is changed -->
     <div class="w3-cell-row " v-if="editMode">
       <div class="w3-cell">
         <div class="w3-card-4 w3-light-gray">
 
+          <!-- when clicked the editing mode switches back to view only -->
           <div class="">
             <button @click="toggleEdit"
-                    class="w3-button w3-bar w3-black w3-small w3-center">Done</button>
+                    class="w3-button w3-bar w3-black w3-small w3-center">Done
+            </button>
           </div>
 
+          <!-- all inputs for the roll data -->
           <div class="w3-container" v-if="!addingShot">
             <div class="">
-              <label for="roll.rollTitle" id="descripLabels">Title</label>
+              <label for="rollTitle" id="descripLabels">Title</label>
               <input type="text"
                      class="w3-input"
                      id="rollTitle"
-                     v-model="roll.rollTitle" @input="emitChange">
+                     v-model="roll.rollTitle"
+                     @input="emitChange">
             </div>
 
             <div class="w3-center">
@@ -104,40 +117,50 @@
             </div>
 
             <div class="">
-              <label for="roll.rollFilmType" id="descripLabels">Film Type</label>
+              <label for="rollFilmType" id="descripLabels">Film Type</label>
               <input type="text"
                      class="w3-input"
                      id="rollFilmType"
-                     v-model="roll.rollFilmType" @input="emitChange">
+                     v-model="roll.rollFilmType"
+                     @input="emitChange">
             </div>
 
             <div class="">
-              <label for="roll.rollISO" id="descripLabels">ISO</label>
+              <label for="rollISO" id="descripLabels">ISO</label>
               <input type="text"
                      class="w3-input"
                      id="rollISO"
-                     v-model="roll.rollISO" @input="emitChange">
+                     v-model="roll.rollISO"
+                     @input="emitChange">
             </div>
 
             <div class="">
-              <label for="roll.rollDescription" id="descripLabels">Description</label>
+              <label for="rollDescription" id="descripLabels">Description</label>
               <textarea id="rollDescription"
                         rows="5"
                         class="w3-input"
-                        v-model="roll.rollDescription" @input="emitChange">
+                        v-model="roll.rollDescription"
+                        @input="emitChange">
               </textarea>
             </div>
           </div>
 
+          <!-- button for deleting the roll -->
           <div class="w3-row" v-if="!addingShot">
             <div class="w3-col">
-              <button @click="deleteRoll" class="w3-bar w3-button w3-red w3-small">Delete Roll</button>
+              <button @click="deleteRoll"
+                      class="w3-bar w3-button w3-red w3-small">Delete Roll
+              </button>
             </div>
           </div>
 
+          <!-- brings up a view to edit info for a new shot -->
           <div class="">
             <!-- toggleAddShot doesn't work quite right-->
-            <app-shots @click="toggleAddShot" @addShot="addShotToRoll" v-if="!completed"></app-shots>
+            <app-shots @click="toggleAddShot"
+                       @addShot="addShotToRoll"
+                       v-if="!completed">
+            </app-shots>
           </div>
           <hr>
 
@@ -151,82 +174,87 @@
 </template>
 
 <script>
-import Shots from './Shots.vue';
+  import Shots from './Shots.vue';
 
-export default {
-
-  model: {
-    prop: 'roll',
-    event: 'input'
-  },
-
-  props: ["roll"],
-
-  data: function() {
-
-    return {
-      shotNumber: 0,
-      editMode: false,
-      viewShots: false,
-      addingShot: false
-    };
-  },
-
-  methods: {
-    saveRoll() {
-      this.$emit('addRoll', this.roll);
+  export default {
+    // used to help make the roll useable as a v-model
+    model: {
+      prop: 'roll',
+      event: 'input'
     },
 
-    addShotToRoll(shot) {
-      console.log("added shot");
-      this.roll.shotsArray.push(shot);
-      this.shotNumber++;
-      this.emitChange();
-    },
-    emitChange() {
-      console.log("emit");
-      this.$emit('input', this.roll);
-    },
-    deleteRoll() {
-      console.log("deleting roll");
+    props: ["roll"],
 
-      if (confirm("Are your sure you want to delete this Roll?") == true) {
-        this.$emit('deleteRoll', this.roll);
-        this.toggleEdit();
+    data: function() {
+      return {
+        shotNumber: 0,
+        editMode: false,
+        viewShots: false,
+        addingShot: false
+      };
+    },
+
+    methods: {
+      saveRoll() {
+        this.$emit('addRoll', this.roll);
+      },
+      // pushes a shot to the roll's shots array and emits a change that will
+      // update the data in the parent
+      addShotToRoll(shot) {
+        console.log("added shot");
+        this.roll.shotsArray.push(shot);
+        this.shotNumber++;
+        this.emitChange();
+      },
+      // required to make roll a v-model, any change to the input emits a change
+      emitChange() {
+        console.log("emit");
+        this.$emit('input', this.roll);
+      },
+      // ask user if they confirm to delete the roll, if yes the function will
+      // emit an event that will tell the parent which roll needs to be deleted
+      deleteRoll() {
+        console.log("deleting roll");
+
+        if (confirm("Are your sure you want to delete this Roll?") == true) {
+          this.$emit('deleteRoll', this.roll);
+          this.toggleEdit();
+        }
+
+        else {
+          console.log("not deleted");
+        }
+
+      },
+      // toggles to help switch on and off views
+      toggleEdit() {
+        this.editMode = !this.editMode;
+      },
+      toggleView() {
+        this.viewShots = !this.viewShots;
+      },
+      toggleAddShot() {
+        console.log("addingShot toggled")
+        this.addingShot = !this.addingShot;
       }
+    },
 
-      else {
-        console.log("not deleted");
+    computed: {
+      // used to check whether the current number of shots does not exceed 36
+      completed() {
+        if(this.shotNumber >= 36) {
+          return true;
+        }
+        else {
+          return false;
+        }
       }
+    },
 
-    },
-    toggleEdit() {
-      this.editMode = !this.editMode;
-    },
-    toggleView() {
-      this.viewShots = !this.viewShots;
-    },
-    toggleAddShot() {
-      console.log("addingShot toggled")
-      this.addingShot = !this.addingShot;
+    components: {
+      'app-shots': Shots,
     }
-  },
-
-  computed: {
-    completed() {
-      if(this.shotNumber >= 36) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    }
-  },
-
-  components: {
-    'app-shots': Shots,
   }
-}
 </script>
 
 <style lang="css">
