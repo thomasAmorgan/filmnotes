@@ -1,68 +1,71 @@
 <template>
 
-  <div class="">
+  <div class="w3-mobile">
+    <div class="w3-container w3-black">
+      <h3>Film Notes</h3>
+    </div>
 
-    <h1>Film Notes</h1>
+    <div class="w3-bar w3-black">
+      <div class="w3-row">
+        <div class="w3-col s4 w3-center">
+          <button @click="selectedComponent = 'app-viewrolls'"
+                  class="w3-button w3-black w3-small">View Rolls</button>
+        </div>
 
-    <button @click="selectedComponent = 'app-add-roll'">Add Roll</button>
+        <div class="w3-col s4 w3-center">
+          <button @click="selectedComponent = ''"
+                  class="w3-button w3-black w3-small">Edit Roll</button>
+        </div>
 
-    <hr>
+        <div class="w3-col s4 w3-center">
+          <button @click="selectedComponent = ''"
+                  class="w3-button w3-black w3-small">Tips</button>
+        </div>
+
+      </div>
+    </div>
 
     <keep-alive>
-      <component :is='selectedComponent'>
+      <component :is='selectedComponent' :rolls="rolls" @newRoll="addRoll" @deleteRoll="deleteRoll">
         <p>default</p>
       </component>
     </keep-alive>
-
   </div>
 
 </template>
 
 <script>
+import ViewRolls from './components/ViewRolls.vue';
 
-import AddRoll from './components/AddRoll.vue';
-// import eventBus from './helpers/eventBus.js';
-import {eventBus} from './main';
+function Roll() {
+  this.rollTitle = "Summer roll";
+  this.rollFilmType = 'Portra';
+  this.rollISO = '400';
+  this.rollDescription = 'Shots from last summer.';
+  this.shotsArray = [];
+}
 
 export default {
 
   data: function() {
     return {
-      selectedComponent: 'app-add-roll',
-      rollData: []
-      // rollData: [
-      //   {
-      //   rollTitle: '',
-      //   rollFilmType: '',
-      //   rollISO: '',
-      //   rollDescription: '',
-      //   shotsArray: [
-      //     {
-      //         shotTitle: '',
-      //         shotShutterSpeed: '',
-      //         shotAperture: '',
-      //         shotDescription: ''
-      //     }
-      //   ]
-      // }]
+      rolls: [new Roll(), new Roll(), new Roll()],
+      selectedComponent: 'app-viewrolls',
     };
   },
+
   methods: {
-    // rollUpdated() {
-    //   eventBus.$on('rollUpdated', function(roll) {
-    //   this.rollData.push(roll);
-    //   });
-    // }
+    addRoll() {
+      this.rolls.push(new Roll());
+    },
+    deleteRoll(rollIndex) {
+      console.log("index received: " + rollIndex);
+      this.rolls.splice(rollIndex, 1);
+    }
   },
-  // mounted() {
-  //   console.log('mounted');
-  //   eventBus.$on('rollUpdated', (roll) => {
-  //   this.rollData.push(roll);
-  //   });
-  // },
 
   components: {
-    'app-add-roll': AddRoll
+    'app-viewrolls': ViewRolls,
   }
 }
 </script>

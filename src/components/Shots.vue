@@ -1,51 +1,60 @@
 <template lang="html">
 
   <div>
-    <button @click="editShot" v-if="!editMode">Add Shot</button>
+    <button @click="editShot" v-if="!editMode" class="w3-bar w3-button w3-blue-gray w3-small">Add Shot</button>
 
     <div v-if="editMode" >
-      <div>
+      <div class="w3-container">
         <div class="">
-          <label for="shotTitle">Title</label>
+          <label for="shotTitle" id="descripLabels">Title</label>
           <input type="text"
+                 class="w3-input"
                  id="shotTitle"
                  v-model="shot.shotTitle">
         </div>
 
         <div class="">
-          <label for="shotShutterSpeed">Shutter Speed</label>
+          <label for="shotShutterSpeed" id="descripLabels">Shutter Speed</label>
           <input type="text"
+                 class="w3-input"
                  id="shotShutterSpeed"
                  v-model="shot.shotShutterSpeed">
         </div>
 
         <div class="">
-          <label for="shotAperture">Aperture</label>
+          <label for="shotAperture" id="descripLabels">Aperture</label>
           <input type="text"
+                 class="w3-input"
                  id="shotAperture"
                  v-model="shot.shotAperture">
         </div>
 
         <div class="">
-          <label for="shotDescription">Notes</label>
+          <label for="shotDescription" id="descripLabels">Notes</label>
           <textarea id="shotDescription"
+                    class="w3-input"
                     rows="5"
                     v-model="shot.shotDescription">
           </textarea>
         </div>
       </div>
-      <button @click="saveShot">Save</button>
+      <div class="w3-bar w3-small w3-row">
+        <div class="w3-col s6 w3-center w3-blue-gray ">
+          <button @click="saveShot" class=" w3-button w3-blue-gray">Save</button>
+        </div>
+        <div class="w3-col s6 w3-center w3-red">
+          <button @click="discardShot" class=" w3-button w3-red">Discard</button>
+        </div>
+      </div>
+
     </div>
   </div>
 
 </template>
 
 <script>
-import {eventBus} from '../main';
 
 export default {
-
-  props: ['roll'],
 
   data: function() {
     return {
@@ -60,12 +69,12 @@ export default {
   },
 
   methods: {
-    saveShot: function() {
+    saveShot() {
       this.$emit('addShot', this.shot);
       this.resetShot();
       this.editMode = false;
     },
-    resetShot: function() {
+    resetShot() {
       this.shot = {
         shotTitle: '',
         shotShutterSpeed: '',
@@ -75,12 +84,23 @@ export default {
     },
     editShot() {
       this.editMode = true;
+    },
+    discardShot() {
+      if (confirm("Are you sure you want to discard this shot?") == true) {
+        this.editMode = false;
+        this.resetShot();
+      }
+      else {
+        console.log("ignore discard");
+      }
     }
   }
-
-
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+  #descripLabels {
+    font-style: italic;
+    font-weight: bold;
+  }
 </style>
