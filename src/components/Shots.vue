@@ -2,13 +2,7 @@
 <template lang="html">
 
   <div>
-    <!-- when clicked it toggles the view to edit a new shot -->
-    <!-- <button @click="editShot"
-            v-if="!editMode"
-            class="w3-bar w3-button w3-blue-gray w3-small">Add Shot
-    </button> -->
-
-    <div  >
+    <div>
       <div class="w3-container">
         <div class="">
           <label for="shotTitle" id="descripLabels">Title</label>
