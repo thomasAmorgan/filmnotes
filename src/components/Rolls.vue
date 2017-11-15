@@ -62,6 +62,7 @@
               </div>
             </div>
 
+<!-- TODO: description goes off the page and cannot do anything or maybe not?-->
             <div class="w3-center">
               <p>{{roll.rollDescription}}</p>
             </div>
@@ -118,7 +119,7 @@
             </button>
           </div>
 
-          <div class="w3-container" v-if="addingShot">
+          <div v-if="addingShot">
             <!-- toggleAddShot doesn't work quite right-->
             <app-shots @addShot="addShotToRoll"
                        @discard="toggleAddShot"
