@@ -115,7 +115,7 @@
           <div class="">
             <button @click="toggleAddShot"
                     v-if="addingShot"
-                    class="w3-bar w3-button w3-blue-gray w3-small">Done
+                    class="w3-bar w3-button w3-black w3-small">Done
             </button>
           </div>
 
@@ -188,17 +188,17 @@
                         @input="emitChange">
               </textarea>
             </div>
-          </div>
 
-          <!-- button for deleting the roll -->
-          <div class="w3-row">
-            <div class="w3-col">
-              <button @click="deleteRoll"
-                      class="w3-bar w3-button w3-red w3-small">Delete Roll
-              </button>
+            <!-- button for deleting the roll -->
+            <div class="w3-row">
+              <div class="w3-col">
+                <button @click="deleteRoll"
+                        class="w3-bar w3-button w3-red w3-small">Delete Roll
+                </button>
+              </div>
             </div>
           </div>
-
+          
           <hr>
 
         </div>

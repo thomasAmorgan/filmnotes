@@ -4,7 +4,7 @@
 
   <div class="w3-mobile">
     <!-- Main header -->
-    <div class="w3-container w3-black">
+    <div class="w3-container w3-black w3-center">
       <h3>Film Notes</h3>
     </div>
 

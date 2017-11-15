@@ -1,41 +1,40 @@
 <!-- handles the creation of a new shot -->
 <template lang="html">
 
-  <div>
-    <div>
-      <div class="w3-container">
-        <div class="">
-          <label for="shotTitle" id="descripLabels">Title</label>
-          <input type="text"
-                 class="w3-input"
-                 id="shotTitle"
-                 v-model="shot.shotTitle">
-        </div>
+<!-- TODO: make shots a v-model like rolls  -->
+  <div class="w3-container">
 
-        <div class="">
-          <label for="shotShutterSpeed" id="descripLabels">Shutter Speed</label>
-          <input type="text"
-                 class="w3-input"
-                 id="shotShutterSpeed"
-                 v-model="shot.shotShutterSpeed">
-        </div>
+      <div class="">
+        <label for="shotTitle" id="descripLabels">Title</label>
+        <input type="text"
+               class="w3-input"
+               id="shotTitle"
+               v-model="shot.shotTitle">
+      </div>
 
-        <div class="">
-          <label for="shotAperture" id="descripLabels">Aperture</label>
-          <input type="text"
-                 class="w3-input"
-                 id="shotAperture"
-                 v-model="shot.shotAperture">
-        </div>
+      <div class="">
+        <label for="shotShutterSpeed" id="descripLabels">Shutter Speed</label>
+        <input type="text"
+               class="w3-input"
+               id="shotShutterSpeed"
+               v-model="shot.shotShutterSpeed">
+      </div>
 
-        <div class="">
-          <label for="shotDescription" id="descripLabels">Notes</label>
-          <textarea id="shotDescription"
-                    class="w3-input"
-                    rows="5"
-                    v-model="shot.shotDescription">
-          </textarea>
-        </div>
+      <div class="">
+        <label for="shotAperture" id="descripLabels">Aperture</label>
+        <input type="text"
+                class="w3-input"
+                id="shotAperture"
+                v-model="shot.shotAperture">
+      </div>
+
+      <div class="">
+        <label for="shotDescription" id="descripLabels">Notes</label>
+        <textarea id="shotDescription"
+                  class="w3-input"
+                  rows="5"
+                  v-model="shot.shotDescription">
+        </textarea>
       </div>
 
       <!-- one button to save the shot to the roll and another to discard it -->
@@ -48,7 +47,6 @@
         </div>
       </div>
 
-    </div>
   </div>
 
 </template>
