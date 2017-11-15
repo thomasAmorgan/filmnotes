@@ -6,7 +6,7 @@
 
     <!-- this is for viewing the information about the roll without editing -->
     <!-- user can choose to view the shots in the roll without editing as well -->
-    <div class="w3-cell-row" v-if="!editMode">
+    <div class="w3-cell-row" v-if="!editMode & !addingShot">
       <div class="w3-cell">
         <div class="w3-card-4 w3-light-gray">
 
@@ -17,14 +17,14 @@
 
           <!-- navbar within roll to allow editing and or displaying the shots -->
           <div class="w3-row w3-bar w3-black w3-small w3-center">
-            <div class="w3-col s6">
+            <div class="w3-col s4">
               <button @click="toggleEdit"
                       class="w3-button w3-black">Edit
               </button>
             </div>
 
             <!-- button will flip depending on what view is displayed roll or shots -->
-            <div class="w3-col s6">
+            <div class="w3-col s4">
               <button @click="toggleView"
                       class="w3-button w3-black"
                       v-if="!viewShots">Shots
@@ -34,15 +34,14 @@
                       v-if="viewShots">Roll
               </button>
             </div>
-          </div>
 
-          <!-- brings up a view to edit info for a new shot -->
-          <div class="">
-            <!-- toggleAddShot doesn't work quite right-->
-            <app-shots @click="toggleAddShot"
-                       @addShot="addShotToRoll"
-                       v-if="!completed">
-            </app-shots>
+            <!-- brings up a view to edit info for a new shot -->
+            <div class="w3-col s4">
+              <button @click="toggleAddShot"
+                      v-if="!addingShot"
+                      class="w3-bar w3-button w3-black w3-small">Add Shot
+              </button>
+            </div>
           </div>
 
           <div class="w3-container" v-if="!viewShots">
@@ -89,9 +88,29 @@
               </div>
             </div>
           </div>
-
           <hr>
+        </div>
+      </div>
+    </div>
 
+    <div class="w3-cell-row" v-if="addingShot">
+      <div class="w3-cell">
+        <div class="w3-card-4 w3-light-gray">
+
+          <div class="">
+            <button @click="toggleAddShot"
+                    v-if="addingShot"
+                    class="w3-bar w3-button w3-blue-gray w3-small">Done
+            </button>
+          </div>
+
+          <div class="w3-container" v-if="addingShot">
+            <!-- toggleAddShot doesn't work quite right-->
+            <app-shots @addShot="addShotToRoll"
+                       v-if="!completed & addingShot">
+            </app-shots>
+          </div>
+          <hr>
         </div>
       </div>
     </div>
@@ -111,7 +130,7 @@
           </div>
 
           <!-- all inputs for the roll data -->
-          <div class="w3-container" v-if="!addingShot">
+          <div class="w3-container">
             <div class="">
               <label for="rollTitle" id="descripLabels">Title</label>
               <input type="text"
@@ -155,7 +174,7 @@
           </div>
 
           <!-- button for deleting the roll -->
-          <div class="w3-row" v-if="!addingShot">
+          <div class="w3-row">
             <div class="w3-col">
               <button @click="deleteRoll"
                       class="w3-bar w3-button w3-red w3-small">Delete Roll
