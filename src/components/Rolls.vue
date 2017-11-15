@@ -36,6 +36,15 @@
             </div>
           </div>
 
+          <!-- brings up a view to edit info for a new shot -->
+          <div class="">
+            <!-- toggleAddShot doesn't work quite right-->
+            <app-shots @click="toggleAddShot"
+                       @addShot="addShotToRoll"
+                       v-if="!completed">
+            </app-shots>
+          </div>
+
           <div class="w3-container" v-if="!viewShots">
             <div class="w3-row w3-center">
               <div class="w3-col s6">
@@ -155,13 +164,13 @@
           </div>
 
           <!-- brings up a view to edit info for a new shot -->
-          <div class="">
-            <!-- toggleAddShot doesn't work quite right-->
+          <!-- <div class="">
+            toggleAddShot doesn't work quite right
             <app-shots @click="toggleAddShot"
                        @addShot="addShotToRoll"
                        v-if="!completed">
             </app-shots>
-          </div>
+          </div> -->
           <hr>
 
           <!-- TODO: add delete button for shots view and a way to edit -->
