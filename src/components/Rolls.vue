@@ -2,14 +2,7 @@
 <!-- can interact with to edit or delete the roll or shots -->
 <template lang="html">
 
-  <div class="w3-container w3-mobile">
-
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~ START - ROLL TITLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-          <!-- displays the roll title -->
-          <div class="w3-bar w3-black w3-center">
-            <h4>{{roll.rollTitle}}</h4>
-          </div>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ END - ROLL TITLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <div class="w3-panel w3-mobile">
 
 <!-- ~~~~~~~~~~~~~~~~~~~~~~ START - ROLL DETAIL CARD ~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- this is for viewing the information about the roll without editing -->
@@ -18,6 +11,13 @@
     <div class="w3-cell-row" v-if="!editMode & !addingShot">
       <div class="w3-cell">
         <div class="w3-card-4 w3-light-gray">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~ START - ROLL TITLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+          <!-- displays the roll title -->
+          <div class="w3-bar w3-black w3-center">
+            <h4>{{roll.rollTitle}}</h4>
+          </div>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ END - ROLL TITLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~ START - NAVBAR ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
           <!-- navbar within roll to allow editing and or displaying the shots -->
@@ -63,6 +63,7 @@
             </div>
 
 <!-- TODO: description goes off the page and cannot do anything or maybe not?-->
+<!-- Maybe make the description area scrollable -->
             <div class="w3-center">
               <p>{{roll.rollDescription}}</p>
             </div>
@@ -71,9 +72,11 @@
 
 <!-- ~~~~~~~~~~~~~~~~~~~~~~ START - SHOT DETAIL LIST ~~~~~~~~~~~~~~~~~~~~~~~ -->
 <!-- TODO: add delete button for shots view and a way to edit -->
-          <div class="w3-container w3-small" v-if="viewShots" v-for="(shot, index) in roll.shotsArray">
-            <div class="w3-row">
+          <div class="w3-container w3-small"
+               v-if="viewShots"
+               v-for="(shot, index) in roll.shotsArray">
 
+            <div class="w3-row">
               <div class="w3-col s6">
                 <p><b>Title:</b> {{shot.shotTitle}}</p>
               </div>
@@ -93,6 +96,7 @@
               </div>
             </div>
 
+  <!--TODO: Maybe make the description area scrollable -->
             <div class="w3-row">
               <div class="w3-col">
                 <p><b>Description:</b> {{shot.shotDescription}}</p>
@@ -101,7 +105,7 @@
           </div>
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~ END - SHOT DETAIL LIST ~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-          <hr>
+          <!-- <hr> -->
         </div>
       </div>
     </div>
@@ -111,6 +115,13 @@
     <div class="w3-cell-row" v-if="addingShot">
       <div class="w3-cell">
         <div class="w3-card-4 w3-light-gray">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~ START - ROLL TITLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                    <!-- displays the roll title -->
+                    <div class="w3-bar w3-black w3-center">
+                      <h4>{{roll.rollTitle}}</h4>
+                    </div>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ END - ROLL TITLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
           <div class="">
             <button @click="toggleAddShot"
@@ -126,7 +137,7 @@
                        v-if="!completed & addingShot">
             </app-shots>
           </div>
-          <hr>
+          <!-- <hr> -->
         </div>
       </div>
     </div>
@@ -139,6 +150,13 @@
     <div class="w3-cell-row " v-if="editMode">
       <div class="w3-cell">
         <div class="w3-card-4 w3-light-gray">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~ START - ROLL TITLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+          <!-- displays the roll title -->
+          <div class="w3-bar w3-black w3-center">
+            <h4>{{roll.rollTitle}}</h4>
+          </div>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ END - ROLL TITLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
           <!-- when clicked the editing mode switches back to view only -->
           <div class="">
@@ -196,7 +214,7 @@
             </div>
           </div>
 
-          <hr>
+          <!-- <hr> -->
 
         </div>
       </div>
@@ -234,7 +252,6 @@
       // pushes a shot to the roll's shots array and emits a change that will
       // update the data in the parent
       addShotToRoll(shot) {
-        console.log("added shot");
         this.roll.shotsArray.push(shot);
         this.shotNumber++;
         this.toggleAddShot()
@@ -242,14 +259,12 @@
       },
       // required to make roll a v-model, any change to the input emits a change
       emitChange() {
-        console.log("emit");
+        // console.log("emit");
         this.$emit('input', this.roll);
       },
       // ask user if they confirm to delete the roll, if yes the function will
       // emit an event that will tell the parent which roll needs to be deleted
       deleteRoll() {
-        console.log("deleting roll");
-
         if (confirm("Are your sure you want to delete this Roll?") == true) {
           this.$emit('deleteRoll', this.roll);
           this.toggleEdit();
@@ -268,7 +283,6 @@
         this.viewShots = !this.viewShots;
       },
       toggleAddShot() {
-        console.log("addingShot toggled")
         this.addingShot = !this.addingShot;
       }
     },
