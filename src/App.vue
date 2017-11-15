@@ -18,12 +18,12 @@
 
         <div class="w3-col s4 w3-center">
           <button @click="selectedComponent = ''"
-                  class="w3-button w3-black w3-small">Edit Roll</button>
+                  class="w3-button w3-black w3-small">Tips</button>
         </div>
 
         <div class="w3-col s4 w3-center">
           <button @click="selectedComponent = ''"
-                  class="w3-button w3-black w3-small">Tips</button>
+                  class="w3-button w3-black w3-small">Settings</button>
         </div>
       </div>
     </div>

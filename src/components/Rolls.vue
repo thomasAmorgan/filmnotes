@@ -3,7 +3,13 @@
 <template lang="html">
 
   <div class="w3-container w3-mobile">
-<!-- TODO: Move the card class out here to reduce code -->
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~ START - ROLL TITLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+          <!-- displays the roll title -->
+          <div class="w3-bar w3-black w3-center">
+            <h4>{{roll.rollTitle}}</h4>
+          </div>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ END - ROLL TITLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 <!-- ~~~~~~~~~~~~~~~~~~~~~~ START - ROLL DETAIL CARD ~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- this is for viewing the information about the roll without editing -->
@@ -13,19 +19,12 @@
       <div class="w3-cell">
         <div class="w3-card-4 w3-light-gray">
 
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~ START - ROLL TITLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-          <!-- displays the roll title -->
-          <div class="w3-bar w3-black w3-center">
-            <h4>{{roll.rollTitle}}</h4>
-          </div>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ END - ROLL TITLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~ START - NAVBAR ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
           <!-- navbar within roll to allow editing and or displaying the shots -->
           <div class="w3-row w3-bar w3-black w3-small w3-center">
             <div class="w3-col s4">
               <button @click="toggleEdit"
-                      class="w3-button w3-black">Edit
+                      class="w3-button w3-black">Edit Roll
               </button>
             </div>
 
@@ -79,7 +78,7 @@
               </div>
 
               <div class="w3-col s6">
-                <p><b>Shot Number:</b> {{index}}/36</p>
+                <p><b>Shot Number:</b> {{index + 1}}/36</p>
               </div>
             </div>
 
@@ -107,7 +106,7 @@
     </div>
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~ END - ROLL DETAIL CARD ~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ START - ADD SHOT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~ START - ADD SHOT CARD ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div class="w3-cell-row" v-if="addingShot">
       <div class="w3-cell">
         <div class="w3-card-4 w3-light-gray">
@@ -122,6 +121,7 @@
           <div class="w3-container" v-if="addingShot">
             <!-- toggleAddShot doesn't work quite right-->
             <app-shots @addShot="addShotToRoll"
+                       @discard="toggleAddShot"
                        v-if="!completed & addingShot">
             </app-shots>
           </div>
@@ -129,9 +129,9 @@
         </div>
       </div>
     </div>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~ END - ADD SHOT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~ END - ADD SHOT CARD ~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-<!-- ~~~~~~~~~~~~~~~~~~~~~~ START - EDITS ROLL DATA ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- ~~~~~~~~~~~~~~~~~~~~ START - EDITS ROLL DATA CARD ~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- allows for the editing of the roll's information, the values are -->
     <!-- linked with a custom v-model that will update the roll's info -->
     <!-- as soon as a value is changed -->
@@ -155,10 +155,6 @@
                      id="rollTitle"
                      v-model="roll.rollTitle"
                      @input="emitChange">
-            </div>
-
-            <div class="w3-center">
-              <label id="descripLabels">Shots: {{ shotNumber }} / 36</label>
             </div>
 
             <div class="">
@@ -198,13 +194,13 @@
               </div>
             </div>
           </div>
-          
+
           <hr>
 
         </div>
       </div>
     </div>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~ END - EDITS ROLL DATA ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~ END - EDITS ROLL DATA CARD ~~~~~~~~~~~~~~~~~~~~~ -->
 
   </div>
 
@@ -224,7 +220,6 @@
 
     data: function() {
       return {
-        shotNumber: 0,
         editMode: false,
         viewShots: false,
         addingShot: false
@@ -241,6 +236,7 @@
         console.log("added shot");
         this.roll.shotsArray.push(shot);
         this.shotNumber++;
+        this.toggleAddShot()
         this.emitChange();
       },
       // required to make roll a v-model, any change to the input emits a change

@@ -91,6 +91,7 @@
         if (confirm("Are you sure you want to discard this shot?") == true) {
           this.editMode = false;
           this.resetShot();
+          this.$emit('discard');
         }
         else {
           console.log("ignore discard");

@@ -23,7 +23,6 @@
 
 <script>
   import Rolls from './Rolls.vue';
-  import Shots from './Shots.vue';
 
   export default {
     // allows access to the array of rolls from the parent component
@@ -43,7 +42,6 @@
 
     components: {
       'app-rolls': Rolls,
-      'app-shots': Shots,
     }
   }
 </script>
