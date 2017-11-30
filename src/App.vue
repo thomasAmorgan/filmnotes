@@ -42,6 +42,7 @@
 
 <script>
   import ViewRolls from './components/ViewRolls.vue';
+  // import rollCollection from './services/filmnotesLoki.js';
 
   // this is the Roll data object, is out here so it can be instantiated
   // multiple times as a new unique object
@@ -60,14 +61,17 @@
     data: function() {
       return {
         rolls: [new Roll(), new Roll(), new Roll()],
+        // rolls: rollCollection.find(),
         // this used to switch between component vues
-        selectedComponent: 'app-viewrolls',
+        selectedComponent: 'app-viewrolls'
       };
     },
 
     methods: {
       addRoll() {
         this.rolls.push(new Roll());
+        // var temp = new Roll();
+        // rollCollection.insert({roll: temp});
       },
       // recieves the index of the roll to be deleted and deletes it
       deleteRoll(rollIndex) {
