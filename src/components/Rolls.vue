@@ -78,11 +78,11 @@
 
             <div class="w3-row">
               <div class="w3-col s6">
-                <p><b>Title:</b> {{shot.shotTitle}}</p>
+                <p><b>Shot Number:</b> {{index + 1}}/36</p>
               </div>
 
               <div class="w3-col s6">
-                <p><b>Shot Number:</b> {{index + 1}}/36</p>
+                <p><b>Title:</b> {{shot.shotTitle}}</p>
               </div>
             </div>
 

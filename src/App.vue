@@ -43,6 +43,7 @@
 <script>
   import ViewRolls from './components/ViewRolls.vue';
   // import rollCollection from './services/filmnotesLoki.js';
+  import Database from './services/filmNotesSqlite.js';
 
   // this is the Roll data object, is out here so it can be instantiated
   // multiple times as a new unique object

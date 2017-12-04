@@ -20,6 +20,7 @@
     "vue": "vue/dist/vue.common.js"
   },
   "dependencies": {
+    "sqlite3": "^3.1.13",
     "vue": "^2.0.1"
   },
   "devDependencies": {
