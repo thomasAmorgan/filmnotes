@@ -43,7 +43,7 @@
 <script>
   import ViewRolls from './components/ViewRolls.vue';
   // import rollCollection from './services/filmnotesLoki.js';
-  import Database from './services/filmNotesSqlite.js';
+  // import Database from './services/filmNotesSqlite.js';
 
   // this is the Roll data object, is out here so it can be instantiated
   // multiple times as a new unique object
@@ -62,6 +62,20 @@
     data: function() {
       return {
         rolls: [new Roll(), new Roll(), new Roll()],
+
+        /*
+          iterate through all items in localforage, add to rolls array
+        */
+
+        // rolls: this.$vlf.getItem('rollDB').then(function(value) {
+        //   // This code runs once the value has been loaded
+        //   // from the offline store.
+        //   console.log(value);
+        // }).catch(function(err) {
+        //   // This code runs if there were any errors
+        //   console.log(err);
+        // }),
+
         // rolls: rollCollection.find(),
         // this used to switch between component vues
         selectedComponent: 'app-viewrolls'
@@ -71,6 +85,26 @@
     methods: {
       addRoll() {
         this.rolls.push(new Roll());
+
+        /*
+          check if the roll exists
+            TRUE: delete old roll
+                  replace with new roll
+                  reload database?
+
+            FALSE: 
+
+        */
+
+        // this.$vlf.setItem('rollDB', [new Roll()]).then(function(value) {
+        //   // This will output `1`.
+        //   console.log(value[0]);
+        // }).catch(function(err) {
+        //   // This code runs if there were any errors
+        //   console.log(err);
+        // });
+
+
         // var temp = new Roll();
         // rollCollection.insert({roll: temp});
       },
